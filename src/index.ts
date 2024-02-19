@@ -15,6 +15,8 @@ dotenv.config();
  * from the `process.env`
  */
 const app: Express = express();
+app.set("trust proxy", true);
+
 const port = process.env.PORT || 3000;
 
 /* Define a route for the root path ("/")
