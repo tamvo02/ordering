@@ -16,7 +16,9 @@ dotenv.config();
  * from the `process.env`
  */
 const app: Express = express();
+
 app.set("trust proxy", true);
+app.use(requestIp.mw());
 
 const port = process.env.PORT || 3000;
 
@@ -27,12 +29,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/order", (req, res) => {
-  const ip =
-    req.headers["cf-connecting-ip"] ||
-    req.headers["x-real-ip"] ||
-    req.headers["x-forwarded-for"] ||
-    req.socket.remoteAddress ||
-    "";
+  const ip = req.ip;
 
   res.send(`Your IP Address is ${ip}.`);
 });
