@@ -27,8 +27,14 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/order", (req, res) => {
-  var clientIp = requestIp.getClientIp(req);
-  res.send(`Your IP Address is ${clientIp}.`);
+  const ip =
+    req.headers["cf-connecting-ip"] ||
+    req.headers["x-real-ip"] ||
+    req.headers["x-forwarded-for"] ||
+    req.socket.remoteAddress ||
+    "";
+
+  res.send(`Your IP Address is ${ip}.`);
 });
 /* Start the Express app and listen
  for incoming requests on the specified port */
