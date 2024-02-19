@@ -18,7 +18,6 @@ dotenv.config();
 const app: Express = express();
 
 app.set("trust proxy", true);
-app.use(requestIp.mw());
 
 const port = process.env.PORT || 3000;
 
@@ -29,9 +28,9 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/order", (req, res) => {
-  const ip = req.ip;
+  const ipAddress = req.ip;
 
-  res.send(`Your IP Address is ${ip}.`);
+  res.send(`Your IP Address is ${ipAddress}.`);
 });
 /* Start the Express app and listen
  for incoming requests on the specified port */
