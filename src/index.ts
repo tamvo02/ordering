@@ -1,6 +1,7 @@
 // src/index.ts
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+const requestIp = require("request-ip");
 
 /*
  * Load up and parse configuration details from
@@ -26,8 +27,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/order", (req, res) => {
-  const ip = req.headers["x-real-ip"] || req.connection.remoteAddress;
-  res.send(`Your IP address is: ${ip}`);
+  var clientIp = requestIp.getClientIp(req);
+  res.send(`Your IP Address is ${clientIp}.`);
 });
 /* Start the Express app and listen
  for incoming requests on the specified port */
