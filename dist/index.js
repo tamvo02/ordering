@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // src/index.ts
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const requestIp = require("request-ip");
 /*
  * Load up and parse configuration details from
  * the `.env` file to the `process.env`
@@ -18,6 +19,7 @@ dotenv_1.default.config();
  * from the `process.env`
  */
 const app = (0, express_1.default)();
+app.set("trust proxy", true);
 const port = process.env.PORT || 3000;
 /* Define a route for the root path ("/")
  using the HTTP GET method */
@@ -25,8 +27,8 @@ app.get("/", (req, res) => {
     res.send("Express + TypeScript Server");
 });
 app.get("/order", (req, res) => {
-    const ip = req.headers["x-real-ip"] || req.connection.remoteAddress;
-    res.send(`Your IP address is: ${ip}`);
+    const ipAddress = req.ip;
+    res.json({ message: `Hello! Your IP address is: ${ipAddress}` });
 });
 /* Start the Express app and listen
  for incoming requests on the specified port */
