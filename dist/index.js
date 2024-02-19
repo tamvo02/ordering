@@ -28,7 +28,10 @@ app.get("/", (req, res) => {
 });
 app.get("/order", (req, res) => {
     const ipAddress = req.ip;
-    res.json({ message: `Hello! Your IP address is: ${ipAddress}` });
+    const ipAddress1 = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    res.json({
+        message: `Hello! Your IP address is: ${ipAddress} and ${ipAddress1}`,
+    });
 });
 /* Start the Express app and listen
  for incoming requests on the specified port */
