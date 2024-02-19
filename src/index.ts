@@ -30,7 +30,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/order", (req, res) => {
   const ipAddress = req.ip;
 
-  res.send(`Your IP Address is ${ipAddress}.`);
+  res.json({ message: `Hello! Your IP address is: ${ipAddress}` });
 });
 /* Start the Express app and listen
  for incoming requests on the specified port */
