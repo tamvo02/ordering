@@ -31,9 +31,10 @@ app.get("/order", (req, res) => {
   const ipAddress = req.ip;
   const ipAddress1 =
     req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const clientIp = (ipAddress1 as string).split(",")[0];
 
   res.json({
-    message: `Hello! Your IP address is: ${ipAddress} and ${ipAddress1}`,
+    message: `Hello! Your IP address is: ${ipAddress} and ${clientIp}`,
   });
 });
 /* Start the Express app and listen
